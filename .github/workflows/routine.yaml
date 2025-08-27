@@ -1,0 +1,28 @@
+name: routine.yaml
+on: [pull_request, push]
+jobs:
+  routine:
+    strategy:
+        max-parallel: 4
+        matrix:
+          os: [macos-latest, ubuntulatest, windows-latest]
+          version: [18,20,22]
+          include:
+            - os: windows-latest
+              version: 22
+          exclude:
+            - os: macos-latest
+              version: 18
+            - os: ubuntu-latest
+              version: 16
+            - os: windows-latest
+              version: 20
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: create file
+        run: echo "OS *${{matrix.os}}*; version *${{matrix.version}}*; " > new1.txt
+      - name: upload file
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: new1.txt
