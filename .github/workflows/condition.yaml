@@ -1,7 +1,9 @@
 name: condition.yaml
 on: [push]
+# add the condition: only if push on MAIN pranche
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Hi"
+	  # test a deploiment oon specifically Ubuntu-latest with Node 18
